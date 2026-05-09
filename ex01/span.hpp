@@ -1,21 +1,30 @@
 #pragma once
 
 #include <iostream>
-#include <stdexcept>
+#include <exception>
 #include <algorithm>
+#include <vector>
 
 class Span
 {
 	private:
-		unsigned int _n;
+		std::vector<int> _numbers;
+		unsigned int _maxSize;
+
+	public:
+		class tooManyNumbersException : public std::exception {
+			const char* what() const throw() { return "Container already full";};
+		};
 		Span();
 		Span(unsigned int);
 		Span(const Span &other);
 		Span &operator=(const Span &other);
 		~Span();
-	public:
 		void	addNumber(int n);
 		int		shortestSpan();
 		int		longestSpan();
-
 };
+
+
+template<typename Iterator>
+void addMany(Iterator begin, Iterator end);
